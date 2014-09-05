@@ -31,6 +31,7 @@
 
 \newcommand{\bN}{{\mathbb{N}}}
 \newcommand{\bZ}{{\mathbb{Z}}}
+\newcommand{\Z}{{\mathbb{Z}}}
 \newcommand{\bR}{{\mathbb{R}}}
 \newcommand{\bC}{{\mathbb{C}}}
 \newcommand{\bQ}{{\mathbb{Q}}}
@@ -165,7 +166,7 @@ If $\lambda \ge B$ we have
 $$
 \sum_{n=0}^\infty n^r e^{-\lambda n} \le \frac{C_1}{\lambda^r} .
 $$
-If $0 < \lambda \le B$ we have 
+If $0 < \lambda \le B$ we have
 $$
 \sum_{n=0}^\infty n^r e^{-\lambda n} \le \frac{C_2}{\lambda^{r+1}}.
 $$
@@ -173,7 +174,44 @@ Observe that in the second case, the case that we will be needed in what follows
 the integral gives the estimate of the discrete sum.
 
 
+\section{Alternative proof of bound on $\sum n^r e^{-\lambda n}$}
+\label{sec:altern-proof-bound}
 
+The sum $\sum n^r e^{-\lambda n}$ can be evaluated exactly, which leads to an alternative argument for the bound shown in the previous section. Let $L$ denote the differential operator $x \frac{d}{dx}$. Let $f(x) = \dfrac{1}{1-x}$, and let $f_r = L^r f$. We observe that
+\[
+\sum n^r e^{-\lambda n} = f_r(e^{-\lambda}).
+\]
+In principle, one can thus compute each sum explicitly; however, there is no obvious formula for the $f_r$. But we can come up with a sufficiently good description to bound the summation.
+\begin{lemma}
+  If $r \geq 1$, then there exists $p_r(x) \in \Z[x]$ of degree $\leq r$ such that $p_r(0) = 0$, $p'_r(0) = 1$, and
+  \[
+  f_r(x) = \frac{p_r(x)}{(1-x)^{r+1}}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Set $p_0(x) = 1$. Via the product rule, one checks that if $p_r(x)$ is defined by 
+  \[
+  p_r(x) = (1-x)^{r+1} f_r(x),
+  \]
+  then the recursion
+  \[
+  p_r = x(1-x)p'_{r-1} + rxp_{r-1}
+  \]
+  holds for $r \geq 1$. The claim follows from an induction argument.
+\end{proof}
+The induction can also show that $p_r$ is monic of degree $r$, but this conclusion is not necessary for the below.
+
+\begin{proposition}
+  For $\lambda$ a sufficiently small positive number, there exists a constant $C$ such that
+  \[
+  \sum n^r e^{-\lambda n} < \frac{C}{\lambda^{r+1}}.
+  \]
+\end{proposition}
+
+\begin{proof}
+  We use the fact that the summation equals $f_r(e^{-\lambda})$. Let $p_r(x)$ be as in the last lemma. Note that $p_r(x) = x + \cdots$, where the dots indicate higher order terms. Then $p_r(e^{-\lambda}) < k e^{-\lambda} < k$ for some $k > 0$ and sufficiently small $\lambda$. (Here the $k$ depends on $p_r$, and hence on $r$.) By Taylor's Theorem, $1-e^{-\lambda} > \ell \lambda$ for some $\ell > 0$ and small enough $\lambda$. The claim now follows.
+\end{proof}
 
 %%%
 
