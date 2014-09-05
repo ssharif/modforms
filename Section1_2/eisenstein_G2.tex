@@ -1,0 +1,458 @@
+
+\documentclass {amsart}
+\usepackage{amsmath, amsthm, amsfonts, amssymb}
+%\usepackage{tikz} \usetikzlibrary{positioning} % for commutative diagrams
+
+%%%% Theorem-type MACROS
+
+\theoremstyle{plain}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}[proposition]{Theorem}
+\newtheorem{corollary}[proposition]{Corollary}
+\newtheorem*{observe}{Observation}
+\newtheorem{lemma}[proposition]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition} 
+\newtheorem{exercise}{Exercise} 
+\newtheorem{axiom}{Axiom}
+\newtheorem{declaration}[axiom]{Declaration}
+
+\theoremstyle{remark}
+\newtheorem{example}{Example}
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem*{assumption}{Background Assumption}
+
+
+%%%% Character MACROS
+\newcommand{\defeq}{\stackrel{\mathrm{def}}{\, = \,}}
+
+\newcommand{\bN}{{\mathbb{N}}}
+\newcommand{\bZ}{{\mathbb{Z}}}
+\newcommand{\bR}{{\mathbb{R}}}
+\newcommand{\bC}{{\mathbb{C}}}
+\newcommand{\bQ}{{\mathbb{Q}}}
+\newcommand{\bF}{{\mathbb{F}}}
+\newcommand{\bA}{{\mathbb{A}}}
+\newcommand{\bP}{{\mathbb{P}}}
+
+\newcommand{\h}{{\mathcal{H}}}
+
+
+
+
+
+%%%%%%%%%%  END OF MACROS  %%%%%%%%%%%%
+
+\begin{document} 
+
+\title{The Eisenstein Series $G_2$}
+
+\author{Modular Form Study Group}
+
+\date{September 2014, modified \today}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%
+
+This handout discusses properties of the weight 2 Eisenstein series~$G_2$
+defined in Section~1.2 (page 18) of Diamond-Shurman. It is essentially Exercise 1.2.8 (page 23)
+of Diamond-Shurman.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\section{An amusing example of conditional convergence}
+
+Consider the sum
+$$
+\sum_{d\in \bZ} 
+\left( \frac{1}{z + d} - \frac{1}{z + d+ 1} \right) = \sum_{d\in \bZ} \frac{1}{(z+d)(z + d + 1)}
+$$
+where $z \in \bC$ is not an integer.
+
+This sum is absolutely convergent (so we do not need to specify the order of summation).
+This follows from the estimate
+$$
+\sum_{\textit{$d \in \bZ$}} \frac{1}{|( z + d)( z + d + 1)|} \le 
+\sum_{\textit{$d \in \bZ$}} \left( \frac{1}{|z + d|^2} +  \frac{1}{|(z + 1) + d|^2}  \right)
+$$
+Note: we showed the absolute convergence of $\sum (z + d)^{-2}$ in a previous
+handout (see \texttt{periodic\_functions.tex}).
+
+This absolutely convergent sum is telescoping:
+$$
+\sum_{d\in \bZ} 
+\left( \frac{1}{z + d} - \frac{1}{z + d+ 1} \right) = 0.
+$$
+
+From these considerations we conclude that for $z \in\bC$ not rational
+$$
+\sum_{c \ne 0} \sum_{d\in\bZ} \left( \frac{1}{c z + d} - \frac{1}{c z + d + 1} \right)
+=
+0
+$$
+(where each sum individually is absolutely convergent, so there is no need
+to specify order of summation).
+
+Now we reverse the order of summation.  Consider
+$$
+\sum_{d\in\bZ} \sum_{c \ne 0}  \left( \frac{1}{c z + d} - \frac{1}{c z + d + 1} \right)
+=
+\sum_{d\in\bZ} \sum_{c \ne 0}  \frac{1}{(c z + d)(c z + d + 1)} 
+$$
+where $z\in \bC$ is irrational.
+We establish the absolute convergence of the inner sum
+using the estimate
+$$
+ \sum_{c \ne 0}  \frac{1}{|(c z + d)(c z + d + 1)|} 
+ \le
+ \sum_{c \in\bZ}  \frac{1}{|c z+d |^2} +  \frac{1}{|c z + d + 1|^2}.
+$$
+Note that
+$$
+ \sum_{c \in\bZ}  \frac{1}{|c z+d |^2} = \frac{1}{|z|^2}
+  \sum_{c \in\bZ}  \frac{1}{|(d/z) + c |^2} 
+$$
+and
+$$
+ \sum_{c \in\bZ}  \frac{1}{|c z+d + 1 |^2} = \frac{1}{|z|^2}
+  \sum_{c \in\bZ}  \frac{1}{|(d + 1)/z + c |^2}.
+$$
+So both sums are absolutely convergence  (see 
+\texttt{periodic\_functions.tex} for the absolute convergence
+of sums of the form~$\sum (w + d)^{-2}$).
+
+So the inner sum is absolutely convergent.
+We will not worry about the absolutely convergence of the outer sum.
+Instead we will consider the summation as given by the limit
+$$
+\lim_{N \to \infty}
+\sum_{d = -N}^N \sum_{c \ne 0}  \left( \frac{1}{c z + d} - \frac{1}{c z + d + 1} \right).
+$$
+The limited double sum (for fixed $N$) is absolutely convergent, and
+by changing the order of summation we get
+$$
+\sum_{d = -N}^N \sum_{c \ne 0}  \left( \frac{1}{c z + d} - \frac{1}{c z + d + 1} \right)
+=
+ \sum_{c \ne 0}  \left( \frac{1}{c z  - N} - \frac{1}{c z + N + 1} \right).
+$$
+From the periodic functions handout (\texttt{periodic\_functions.tex})
+we have
+$$
+\pi \cot \pi z = \lim_{M \to \infty} \sum_{a = -M}^{M} \frac{1}{z - a}.
+$$
+So if we take the above sum over $c \ne 0$ as given by the limit of
+the sum from $c = -M$ to $c=M$, we can use the above cotangent identity to conclude
+that
+$$
+ \sum_{c \ne 0}  \left( \frac{1}{c z  - N} - \frac{1}{c z + N + 1} \right)
+ =
+\frac{\pi}{z} \cot (- \pi N/z ) + \frac{\pi}{z} \cot ( - \pi (N+ 1)/z )  + \frac{1}{N} + \frac{1}{N+1}.
+$$
+Recall that 
+$$
+\cot \pi z = i \, \frac{q + 1}{q - 1}
+$$
+where $q = e^{2 \pi i z}$ (see \texttt{periodic\_functions.tex}).
+This shows that if  $z \in \h$, then 
+$$
+\lim_{N \to \infty}
+\sum_{d = -N}^N \sum_{c \ne 0}  \left( \frac{1}{c z + d} - \frac{1}{c z + d + 1} \right)
+= - \frac{2 \pi i} {z}.
+$$
+We conclude that for $z \in \h$, the given double sum
+$$
+\sum_{c \ne 0} \sum_{d\in\bZ} \left( \frac{1}{c z + d} - \frac{1}{c z + d + 1} \right)
+$$
+cannot be absolutely convergent.
+(A similar argument can be given for $-z \in \h$).
+
+\begin{remark}
+Later we will see that both the inner and outer summations of
+$$\sum_{d\in\bZ} \sum_{c \ne 0} \left( \frac{1}{c z + d} - \frac{1}{c z + d + 1} \right)$$
+are absolutely convergent.
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%
+
+\section {The function $G_2$}
+
+The weight two Eisenstein function $G_2: \h \to \bC$ is defined by the formula
+$$
+G_2 (z) \; \defeq \; \sum_{c \in \bZ} \; \sum_{d \in \bZ}  \,'\, \frac{1}{(c z + d)^2}
+= 2 \zeta (2) + \sum_{c \ne 0} \; \sum_{d \in \bZ} \, \frac{1}{(c z + d)^2}.
+$$
+The prime on the first inner sum means to exclude $d = 0$ if $c =0$.
+
+In another handout (\texttt{periodic\_functions.tex}), we found that for $c \ne 0$ the inner sum
+is absolutely convergent and defines a holomorphic periodic function on~$\h$ (and meromorphic on~$\bC$). In fact,
+$$
+\sum_{d \in \bZ}  \frac{1}{(c z + d)^2} = \frac{\pi^2}{\sin^2 (c \pi z)} = - \frac{4 \pi^2 q^c}{(q^c - 1)^2}
+$$
+where $q = e^{2 \pi i z}$. Using the well-known power series expansion of $1/(z-1)^2$ (obtained by differentiating the geometric sum expansion of $1/(1-z)$) we get the expansion
+$$
+\sum_{d \in \bZ}  \frac{1}{(c z + d)^2} =  - 4 \pi^2 \sum_{n=1}^\infty n q^{c n},
+$$
+where the right hand sum is absolutely convergent for all $z \in \h$.
+
+Since
+$$
+\sum_{c = 1}^\infty \sum_{n=1}^\infty n |q|^{cn} = \sum_{m = 1}^\infty \sigma(m) |q|^{m}
+\le 
+\sum_{m = 1}^\infty m^2 |q|^{m}
+$$
+we get absolute convergence of the double sum
+$
+\sum \sum n q^{c n}.
+$
+The outer sum of this sum is essentially the outer sum defining~$G_2(z)$.
+So we get the absolute convergence of the outer sum defining $G_2(z)$
+for all $z \in \h$, and can derive the $q$-expansion
+$$
+G_2 (z) 
+= 2 \zeta (2) - 8\pi^2  \sum_{m = 1}^\infty \sigma(m) q^{m}.
+$$
+
+In summary, \emph{$G_2$ is a periodic holomorphic function
+with a nice $q$-expansion. Its double series definition is only conditionally convergent (as
+we will see), but individually the inner sum is absolutely convergent, and the outer
+sum is absolutely convergent.}
+
+%%%%%%%%%%%%%%%%%%%%
+
+\section {Transformation properties}
+
+Now we derive a double sum expression for~$z^{-2} G_2(-1/z)$.
+
+Recall that the double sum definition of $G_2(z)$ is convergent for $z\in\h$, and
+individually the inner and outer sums are absolutely convergent.
+Since for all $z\in\h$ we have $-1/z \in \h$, both the inner and outer
+sums are absolutely convergent  in the following:
+$$
+z^{-2} G_2 (-1/z) = \frac{1}{z^2} \sum_{c \in \bZ} \; \sum_{d \in \bZ}  \,'\, \frac{1}{(- c z^{-1} + d)^2}
+=
+\sum_{c \in \bZ} \; \sum_{d \in \bZ}  \,'\, \frac{1}{(- c + d z)^2}
+$$
+where the prime in the inner sum means remove the $d=0$ term
+if $c \ne 0$.
+We rewrite this as
+$$
+z^{-2} G_2 (-1/z) = 
+\sum_{d \in \bZ} \; \sum_{c \in \bZ}  \,'\, \frac{1}{(c z + d)^2}
+=
+2 \zeta(2) + \sum_{d \in \bZ} \; \sum_{c \ne 0}  \, \frac{1}{(c z + d)^2} 
+.
+$$
+(the last step uses the fact, applied to the outer sum, that the sum of absolutely
+convergent series is an absolutely convergent series. In particular, 
+both the inner and outer
+sums of $ \sum_{d \in \bZ} \; \sum_{c \ne 0}  {(c z + d)^{-2}}$
+are absolutely convergent).
+
+%%%%%%%%%%%%%%%%%%%%
+
+\section {The Absolute Convergence Trick}
+
+The $q$-expansion of $G_2$ gives one absolutely convergent expression for $G_2$,
+but there is another way to get an absolutely convergent expression involving 
+a double sum $\sum_{c \ne 0} \; \sum_{d \in \bZ}$ as in the original definition.
+
+We know that 
+$$\sum_{c \ne 0} \; \sum_{d \in \bZ} \, \frac{1}{(c z + d)^2}$$
+is absolutely convergent with respect to the first and second summations.
+We know that the same is true of
+$$
+\sum_{c \ne 0} \sum_{d\in\bZ}  \frac{1}{(c z + d) (c z + d + 1)}
+$$
+and that its value is~$0$ because the inner sum is telescoping.
+So we can subtract the two series and simplify as follows
+
+\begin{eqnarray*}
+\sum_{c \ne 0} \; \sum_{d \in \bZ} \, \frac{1}{(c z + d)^2}
+&=&
+\sum_{c \ne 0} \; \sum_{d \in \bZ} \, \frac{1}{(c z + d)^2} -
+    \sum_{c \ne 0} \sum_{d\in\bZ}  \frac{1}{(c z + d) (c z + d + 1)}
+\\
+&=&
+\sum_{c \ne 0} \; \sum_{d \in \bZ} \left( \frac{1}{(c z + d)^2}
+-
+ \frac{1}{(c z + d) (c z + d + 1)}
+\right)
+\\
+&=&
+\sum_{c \ne 0} \; \sum_{d \in \bZ}
+ \frac{1}{(c z + d)^2 (c z + d + 1)}.
+\end{eqnarray*}
+
+This last sum is actually absolutely convergent for $z \in \h$.
+This can be seen by using the estimate
+$$
+\sum_{c \ne 0} \; \sum_{d \in \bZ}
+ \frac{1}{|(c z + d)^2 (c z + d + 1)|}
+\le
+\sum_{c \ne 0} \; \sum_{d \in \bZ}
+\left(
+ \frac{1}{|c z + d|^3}
+ +
+ \frac{1}{|c z + d + 1|^3}
+ \right).
+$$
+The right hand side is convergent for all $z\in\h$. This was established
+in the Eisenstein Series Handout (\texttt{eisenstein\_convergence.tex}).
+
+Due to absolute convergence we can write
+\begin{eqnarray*}
+\sum_{c \ne 0} \; \sum_{d \in \bZ} \, \frac{1}{(c z + d)^2}
+&=&
+\sum_{c \ne 0} \; \sum_{d \in \bZ}
+ \frac{1}{(c z + d)^2 (c z + d + 1)}
+\\
+&=&
+\sum_{d \in \bZ}  \; \sum_{c \ne 0}
+ \frac{1}{(c z + d)^2 (c z + d + 1)}
+\\
+&=&
+\sum_{d \in \bZ}  \; \sum_{c \ne 0}\left( \frac{1}{(c z + d)^2}
+-
+ \frac{1}{(c z + d) (c z + d + 1)}
+\right)
+\end{eqnarray*}
+In the previous section we noted that both the inner and outer summations
+of
+$$
+\sum_{d \in \bZ}  \; \sum_{c \ne 0}  \frac{1}{(c z + d)^2}
+$$
+are absolutely convergent. By considering the difference of double sums,
+we conclude that 
+$$
+\sum_{d \in \bZ}  \; \sum_{c \ne 0}
+ \frac{1}{(c z + d) (c z + d + 1)}
+$$
+also has the property that the inner and outer summations are absolutely convergent.
+We can use the formula for this double sum given above to conclude the following:
+\begin{eqnarray*}
+\sum_{c \ne 0} \; \sum_{d \in \bZ} \, \frac{1}{(c z + d)^2}
+&=&
+\sum_{d \in \bZ}  \; \sum_{c \ne 0}\left( \frac{1}{(c z + d)^2}
+-
+ \frac{1}{(c z + d) (c z + d + 1)}
+\right)
+\\
+&=&
+\sum_{d \in \bZ}  \; \sum_{c \ne 0}
+\frac{1}{(c z + d)^2}
+-
+\sum_{d \in \bZ}  \; \sum_{c \ne 0}
+ \frac{1}{(c z + d) (c z + d + 1)}
+ \\
+&=&
+ \frac{2 \pi i} {z} + 
+\sum_{d \in \bZ}  \; \sum_{c \ne 0}
+\frac{1}{(c z + d)^2}.
+\end{eqnarray*}
+In particular, for any given $z \in \h$, the double
+sum 
+$$
+\sum_{c \ne 0} \; \sum_{d \in \bZ} \, \frac{1}{(c z + d)^2}
+$$
+is not absolutely convergent. The same conclusion holds for the double
+sum defining~$G_2$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%
+
+
+\section {Transformation properties}
+
+Let $z \in \h$.
+We can now connect $z^{-2} G_2(-1/z)$ to $G_2(z)$.
+Observe
+\begin{eqnarray*}
+\frac{G_2 (-1/z) }{z^2}
+&=&
+2 \zeta(2) + \sum_{d \in \bZ} \; \sum_{c \ne 0}  \, \frac{1}{(c z + d)^2} 
+\\
+&=&
+2 \zeta(2)
++
+\sum_{c \ne 0} \; \sum_{d \in \bZ} \, \frac{1}{(c z + d)^2}
+ -
+ \frac{2 \pi i} {z}
+ \\
+&=&
+G_2(z)
+ -
+ \frac{2 \pi i} {z}.
+\end{eqnarray*}
+This shows that $G_2(z)$ is not weight-2 invariant under $SL_2(\bZ)$.
+In fact it behaves similarly to the nonholomorphic function $z \mapsto 1/\mathrm{Im}(z)$:
+
+\begin{lemma}
+Let
+$
+f(z) = 1 / \mathrm{Im}(z)
+$.
+Then $f(z + 1) = f(z)$ and
+$$
+\frac{f(-1/z)}{z^2} = f(z) - \frac{2 i}{z}.
+$$
+\end{lemma}
+
+\begin{proof}
+Clearly $f(z+1) = f(z)$. 
+Observe that~$\mathrm{Im} (-1/z) = \mathrm{Im}(z) / (z \overline z)$. Thus
+$$
+\frac{f(-1/z)}{z^2} - f(z)  = \frac{z \overline z} { z^2 \, \mathrm{Im} (z)} - \frac{1}{\mathrm{Im}(z)}
+=
+\frac{\overline z - z} {z \, \mathrm{Im} (z)}
+=
+\frac{-\mathrm{2\,  Im}(z) i} {z \, \mathrm{Im} (z)}
+=
+- \frac{2 i}{z}.
+$$
+\end{proof}
+
+\begin{corollary}
+The function $G_2(z) -  \pi / \mathrm{Im} (z)$ is weight-2 invariant under $SL_2(\bZ)$.
+\end{corollary}
+
+\begin{corollary}
+Suppose $\gamma  \in SL_2(\bZ)$ is of the form
+$$\gamma = \begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}.$$
+Then
+$$
+\left( G_2  {[\gamma]_2} \right) (z) =  G_2 (z) - \frac{2 \pi i c }{c z + d}
+$$
+\end{corollary}
+
+\begin{proof}
+Since $G_2(z) -  \pi / \mathrm{Im} (z)$ is weight-2 invariant, we just need
+to calculate $f [\gamma]_2$ where $f(z) = \pi/\mathrm{Im}(z)$.
+\begin{eqnarray*}
+f [\gamma]_2 (z) - f (z)
+&=&
+\frac{1}{(c z + d)^2} \frac{\pi}{\mathrm{Im}(\gamma z)} - \frac{\pi}{\mathrm{Im}(z)}
+\\
+&=&
+\frac{1}{(c z + d)^2} \frac{\pi |c z + d|^2}{\mathrm{Im}(z)} - \frac{\pi}{\mathrm{Im}(z)}
+ \\
+&=&
+\frac{\pi}{\mathrm{Im}(z)}
+\left(
+ \frac{c\overline z + d} {cz+d} -  \frac{cz + d} {cz+d} 
+ \right)
+ \\
+ &=&
+ - \frac{2 \pi i c}{c z + d} \, .
+\end{eqnarray*}
+
+\end{proof}
+
+\end{document}
