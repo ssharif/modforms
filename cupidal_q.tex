@@ -1,0 +1,189 @@
+
+\documentclass {amsart}
+\usepackage{amsmath, amsthm, amsfonts, amssymb}
+%\usepackage{tikz} \usetikzlibrary{positioning} % for commutative diagrams
+
+%%%% Theorem-type MACROS
+
+\theoremstyle{plain}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}[proposition]{Theorem}
+\newtheorem{corollary}[proposition]{Corollary}
+\newtheorem*{observe}{Observation}
+\newtheorem{lemma}[proposition]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition} 
+\newtheorem{exercise}{Exercise} 
+\newtheorem{axiom}{Axiom}
+\newtheorem{declaration}[axiom]{Declaration}
+
+\theoremstyle{remark}
+\newtheorem{example}{Example}
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem*{assumption}{Background Assumption}
+
+
+%%%% Character MACROS
+\newcommand{\defeq}{\stackrel{\mathrm{def}}{\, = \,}}
+
+\newcommand{\bN}{{\mathbb{N}}}
+\newcommand{\bZ}{{\mathbb{Z}}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\bR}{{\mathbb{R}}}
+\newcommand{\bC}{{\mathbb{C}}}
+\newcommand{\bQ}{{\mathbb{Q}}}
+\newcommand{\bF}{{\mathbb{F}}}
+\newcommand{\bA}{{\mathbb{A}}}
+\newcommand{\bP}{{\mathbb{P}}}
+
+\newcommand{\h}{{\mathcal{H}}}
+
+
+
+
+
+%%%%%%%%%%  END OF MACROS  %%%%%%%%%%%%
+
+\begin{document} 
+
+\title{Cuspidal $q$ (DRAFT)}
+
+\author{Modular Form Study Group}
+
+\date{September 2014, modified \today}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%
+
+If the $q$ coordinate of point is small with respect to one cusp, how does that point look from the point of view of other cusps? In other words, how close to $1$ is the $q$-value with respect to other cusps?
+
+\section{Draft}
+
+
+
+
+Fix positive bounds $X$ and $Y$.
+Let $S$ be the strip~$\{ x + y i \in \h \; \mid \; |x| \le X, \; y \ge Y \}$.
+Let
+$$ \alpha = \begin{bmatrix}
+       a & b         \\
+       c & d
+ \end{bmatrix}  \in SL (2, \bZ).$$
+ be such that $c \ne 0$. In other words, $\alpha$ transforms
+ the cusp at infinity to the rational number~$a/c$.
+
+Fix $z \in S$ and define $x, y \in\bR$ and $q \in \bC$ by the formulas $z = x + y i$
+and $q = \exp (2 \pi i z)$.
+ Let $z' = \alpha(z)$, and define $x, y \in \bR$ and $q \in \bC$ by the formulas $z' = x '+ y' i$
+and $q' = \exp (2 \pi i z')$.
+
+Clearly when $|q|$ is close to zero, $|q'|$ will be close to one.  We want to quantify this behavior. In particular, for what follows we will need lower bounds for $1 - |q'|$ in terms of~$|q|$.
+The constants below are to be understood to depend on $X, Y, \alpha$, but to be independent
+of the choice of~$z \in S$.
+
+\begin{lemma}\label{l1}
+There are positive constants $C_1$ and $C_2$ such that
+$$
+C_1 \; y \le |c z + d| \le C_2\; y.
+$$
+\end{lemma}
+
+\begin{proof}
+The imaginary part of $c z + d$ is $c y$, so the left inequality holds.
+By considering real and imaginary parts we have (by the triangle inequality)
+$$
+|c z + d | \le |c x + d| + |c y| \le |c| X + |d| + |c| y.
+$$
+Let $K = |c| X + |d|$. So
+$$
+|c z + d | \le K + |c| y \le K \frac{y}{Y} + |c| y  = \left( \frac{K}{Y} + |c|\right) y
+$$
+\end{proof}
+
+Clearly as $y$ goes to infinity, $y'$ approaches zero. The following quantifies how fast $y'$ approaches zero.
+
+\begin{corollary}\label{c2}
+There are constants $D_1$ and $D_2$ such that
+$$
+\frac{D_1}{y} \le y' \le \frac{D_2}{y}.
+$$
+\end{corollary}
+
+\begin{proof}
+This follows from the above lemma and the formula $y' = y / |c z + d|^2$.
+In fact we can take $D_1$ to be $1/C^{2}_2$, and $D_2$ to be $1/C^2_1$
+where $C_1$ and $C_2$ are bounds appropriate in the previous lemma.
+\end{proof}
+
+\begin{lemma}\label{l3}
+There is a  constants $C$  such that
+$$
+|q'| \le 1 - C y'.
+$$
+\end{lemma}
+
+\begin{proof}
+Observe that $|q'| = e^{-2\pi y'}$. 
+Since $y \ge Y$, the above corollary gives a bound $Y'$ such that $y' \le Y'$.
+By the following lemma there is a positive constant $C$, depending on~$Y'$, such that
+$$
+e^{-2 \pi y'} \le 1 - C y'.
+$$
+\end{proof}
+
+\begin{lemma}
+Fix $t_0>0$. Then
+for all $t \in [-t_0, 0]$
+$$
+e^t \le 1 + \frac{1 - e^{-t_0}}{t_0} \cdot t.
+$$
+\end{lemma}
+\begin{proof}
+Consider the line
+connecting  $(-t_0, e^{-t_0})$ and $(0, 1)$.
+Use the fact that the second derivative of $t \mapsto e^t$ is positive. 
+\end{proof}
+
+Here is our main proposition on the size of $q'$:
+
+\begin{proposition}
+There is a positive constant $C$ such that
+$$
+1 - \left| q' \right| \ge \frac{C}{\log \left|q^{-1}\right| }.
+$$
+\end{proposition}
+
+\begin{proof}
+Combining Corollary~\ref{c2} and Lemma~\ref{l3}, we can find a constant $K$ such that
+$$
+|q'| \le 1 -  \frac{K}{y}.
+$$
+However, $\log \left|q^{-1}\right| = 2 \pi y$.
+So 
+$$
+|q'| \le 1 -  \frac{2 \pi K}{\log \left|q^{-1}\right| }.
+$$
+\end{proof}
+
+We will also need the following:
+
+\begin{proposition}
+There are positive constants $D_1$ and $D_2$ such that
+$$
+ \frac{D_1}{\log \left|q^{-1}\right| } \le |c z + d| \le \frac{D_2}{\log \left|q^{-1}\right| }.
+$$
+\end{proposition}
+
+\begin{proof}
+This is just a restatement of Lemma~1 using the equation 
+$\log \left|q^{-1}\right| = 2 \pi y$.
+\end{proof}
+
+
+
+
+\end{document}
