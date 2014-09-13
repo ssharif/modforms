@@ -1,0 +1,87 @@
+
+\documentclass {amsart}
+\usepackage{amsmath, amsthm, amsfonts, amssymb}
+%\usepackage{tikz} \usetikzlibrary{positioning} % for commutative diagrams
+
+%%%% Theorem-type MACROS
+
+\theoremstyle{plain}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}[proposition]{Theorem}
+\newtheorem{corollary}[proposition]{Corollary}
+\newtheorem*{observe}{Observation}
+\newtheorem{lemma}[proposition]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition} 
+\newtheorem{exercise}{Exercise} 
+\newtheorem{axiom}{Axiom}
+\newtheorem{declaration}[axiom]{Declaration}
+
+\theoremstyle{remark}
+\newtheorem{example}{Example}
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem*{assumption}{Background Assumption}
+
+
+%%%% Character MACROS
+\newcommand{\defeq}{\stackrel{\mathrm{def}}{\, = \,}}
+
+\newcommand{\bN}{{\mathbb{N}}}
+\newcommand{\bZ}{{\mathbb{Z}}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\bR}{{\mathbb{R}}}
+\newcommand{\bC}{{\mathbb{C}}}
+\newcommand{\bQ}{{\mathbb{Q}}}
+\newcommand{\bF}{{\mathbb{F}}}
+\newcommand{\bA}{{\mathbb{A}}}
+\newcommand{\bP}{{\mathbb{P}}}
+
+\newcommand{\h}{{\mathcal{H}}}
+\newcommand{\gtk}{G_{2,k}}
+
+
+
+
+
+%%%%%%%%%%  END OF MACROS  %%%%%%%%%%%%
+
+\begin{document} 
+
+\title{Fourier series of $G_{2,k}$}
+
+\author{Modular Form Study Group}
+
+\date{September 2014, modified \today}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%
+
+The purpose of this note is to prove the formulae for the Fourier series of $G_{2,2}$ and $G_{2,4}$ given in the text. In fact, it is not much harder to find the Fourier series of $G_{2,k}$ for any $k$. The text proves the formula
+\[
+G_2(\tau) = 2\zeta(2)  - 8\pi^2 \sum_{n=1} \sigma(n) q^n.
+\]
+The series $G_{2,k}(\tau)$ is $G_2(\tau) - k G_2(k\tau)$. We note that $\zeta(2) = \frac{\pi^2}{6}$; together with the below, this is sufficient to compute the constant term in $G_{2,k}(\tau)$. We will show that
+\[
+G_{2,k}(\tau) = 2(1-k)\zeta(2) - 8\pi^2 \sum_{n=1} \bigg(\sum_{\substack{0 < d \mid n \\ k \nmid d}} d\bigg) q^n.
+\]
+From the definition of $\gtk$ and the fact that $q(k\tau) = q(\tau)^k$, we have
+\[
+\gtk(\tau) = 2(1-k)\zeta(2) - 8\pi^2 \bigg(\sum_{n=1} \sigma(n) q^n - \sum_{n=1} k\sigma(n) q^{kn}\bigg).
+\]
+Thus it suffices to show that
+\[
+\sum_{n=1} \sigma(n) q^n - \sum_{n=1} k\sigma(n) q^{kn} = \sum_{n=1} \bigg(\sum_{\substack{0 < d \mid n \\ k \nmid d}} d\bigg) q^n.
+\]
+The sums on the left combine to yield $\sum c_n q^n$ for some $c_n$. If $k \nmid n$, then certainly $c_n = \sigma(n)$, and both left and right sides of the equation agree. Now suppose $n = km$. The coefficient of $q^n$ on the left is $\sigma(km) - k\sigma(m)$. But
+\begin{align*}
+  k \sigma(m) &= \sum_{0 < d \mid m} kd \\
+  &= \sum_{\substack{0< d' | n \\ k \mid d'}} d'.
+\end{align*}
+The claim now follows.
+
+Given that $\gtk$ is supposed to be a newform for $\Gamma_0(k)$, one wonders if the Fourier series has a moduli-theoretic interpretation.
+\end{document}
